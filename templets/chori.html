@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+      <li><a href="userlogin">Home</a></li>
+      <li class="heading" style="align:center;"><center><a class="center" class="active"><span style="color:#48EAFF;">Chori</span></a></center></li>
+      </li>
+      <li><a  href="gate">Gate</a>
+      </li>
+      <li><a href="tablechair" >chair</a>
+         </li>
+        <li><a href="paat" >paat</a></li>
+      <li><a href="others">Table</a>
+          </li>
+    </ul>
+  </nav>
+</div>
+<div class="wrapper bgded overlay light">
+  <main class="hoc container clear">
+    <div class="content">
+      <div id="gallery">
+        <figure>
+          <div class="nospace clear" >
+            {% for dest in dests %}
+              {% if dest.p_dis == "in" %}
+                            <div class = "dimag"  style="margin-left:10px;margin-right:10px;display: inline-block;"><a href="/chori/{{dest.p_code}}"><img src="{{dest.p_img.url}}" alt="That the chori image;if not see report!!"></a></div>
+              {%else%}
+              <div class = "dimag"  style="margin-left:10px;margin-right:10px;display: inline-block;"><a href="/chori/{{dest.p_code}}"><img src="{{dest.p_img.url}}" alt="That the chori image;if not see report!!"></a></div>
+
+            {% endif %}
+            {% endfor %}
+     </div>
+          <div class="destination_content">
+
+          </div>
+        </figure>
+      </div>
+    </div>
+  </main>
+</div>
+
+</div>
+<style>
+.dimag{
+width:200px;
+}
+img {
+    padding:0px;
+    margin:20px;
+  display: block;
+  margin-top: px;
+  margin-left: 62px;
+  margin-right: auto;
+  width: 180%;
+}
+</style>
+{% endblock %}
+<style>
+
+</style>
+

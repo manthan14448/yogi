@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+ <li>
+         <li class=""><a href="#"  onclick="myFunction()">Go Back</a> </li>
+      <li class="active"><a href="#" class="heading">Inquiry History</a>
+        <li> <a href="/customer_info/userlogin">Home</a></li>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="wrapper bgded overlay light">
+  <main class="hoc container clear">
+    <div class="content">
+      <div id="gallery">
+        <figure>
+            {% if dests %}
+          <div class="nospace clear" >
+            {% for dest in dests %}
+              {% if dest.p_dis == "in" %}
+                            <div class = "dimag"  style="margin-left:20px;display: inline-block;"><a href="/{{dest.p_type_id}}/{{dest.p_code}}/CP"><img src="{{dest.p_img.url}}" alt="That the Product image;if not see report!!"></a></div>
+         <label style="margin-left:-60px;display: inline-block;font-weight:bold;">{{dest.p_type_id|upper}}</label>
+            <br>
+              {%else%}
+              <div class = "dimag"  style="margin-left:20px;display: inline-block;"><a href="/{{dest.p_type_id}}/{{dest.p_code}}/CP"><img src="{{dest.p_img.url}}" alt="That the chori image;if not see report!!"></a></div>
+            <label style="margin-left:-60px;display: inline-block;font-weight:bold;">{{dest.p_type_id|upper}}</label>
+            {% endif %}
+            {% endfor %}
+          </div>
+            {% else %}
+            <big><center><b>Not added Any Product</b></center></big>
+
+            {% endif %}
+        </figure>
+      </div>
+    </div>
+  </main>
+</div>
+
+
+</div>
+<script>
+       function myFunction(){
+    window.history.back();
+}
+</script>
+<style>
+.set{
+width:30px;
+}
+.dimag{
+width:200px;
+}
+img {
+    padding:0px;
+    margin:20px;
+  display: block;
+  margin-top: px;
+  margin-left: 62px;
+  margin-right: auto;
+  width: 180%;
+}
+</style>
+{% endblock %}
+<style>
+
+</style>
+

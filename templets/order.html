@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+      <li class="heading" ><a class="active">{{code}} </a>
+    </ul>
+  </nav>
+</div>
+<div class="wrapper bgded overlay light">
+  <main class="hoc container clear">
+    <div class="content" >
+      <form action=""><div style="margin-left:20px;"> <b> color</b>
+                                     {% for i in color%}
+          <ul><li>{{i.price}}<input type="radio" value="{{i.colors}}"></li></ul>
+                                    {% endfor %}
+          </div>
+
+      </form>
+      </div>
+    </div>
+  </main>
+</div>
+
+{% endblock %}

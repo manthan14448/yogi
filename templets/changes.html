@@ -1,0 +1,264 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+        <li class="set"><a href="#" onclick="goBack()"><img class="shak" src="{% static 'back.jpg' %}"></a> </li>
+      <li class="heading" ><a class="active">change {{ coms }}</a>
+        <li><a href="/customer_info/userlogin">Home</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div class="wrapper bgded overlay light">
+ <main class="hoc container clear">
+     {% if  coms  == 'Name' %}
+     <div style="margin-left:120px;">
+     <form id="frm" alignaction="#" method="post">{% csrf_token %}
+         <div class="row">
+    <div class="row">
+        <center><p style="color:red">*Name is must above 6 charcter and less then 20 charcter</p></center>
+      <div class="col-25">
+          <label for="country">Enter a new name:</label>
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+          <input class="size" name="chname" type="text" placeholder="Enter a new name">
+            </div>
+      </div>
+    </div><div class="row">
+    <div class="row">
+      <div class="col-25">
+          <label for="country" style="margin-top:15px;">Enter A Password:</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75"><div class="col-75">
+        <div class="col-75">
+          <input class="size" name="chpass" style="margin-top:10px;" type="password" placeholder="Password">
+            <input type="submit" name="changedata" >
+         </div>
+      </div>
+    </div>
+
+     </form>
+       {% elif  coms  == 'Mobile' %}
+     <div style="margin-left:120px;">
+     <form id="frm" alignaction="#" method="post">{% csrf_token %}
+    <div class="row">
+        <center><p style="color:red">*Mobile Number is should be 10 digit</p></center>
+      <div class="col-25">
+          <label for="country">Enter A New Mobile Number:</label>
+          </div>
+      <div class="col-75">
+          <input class="size" name="chMame" type="text" placeholder="Enter a new Mobile Number">
+      </div>
+    </div>
+      <div class="col-25">
+          <label for="country" style="margin-top:-30px;">Enter A password:</label>
+      </div>
+        <div class="col-75">
+        <div class="col-75">
+          <input class="size" name="chpass" style="margin-top:-25px;" type="password" placeholder="Password">
+            <input type="submit" name="changedata" >
+    </div>
+    </div>
+     </form>
+     </div>
+     </div>
+     {% elif  coms  == "Email" %}
+      <div style="margin-left:120px;">
+     <form id="frm" alignaction="#" method="post">{% csrf_token %}
+         <div class="row">
+    <div class="row">
+        <center><p style="color:red">*E-mail should be currect</p></center>
+      <div class="col-25">
+         <label for="country">Enter a new Email:</label>
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+         <input class="size" type="text" name="chemail" placeholder="Enter a new Email">
+            </div>
+      </div>
+    </div><div class="row">
+    <div class="row">
+      <div class="col-25">
+         <label for="country" style="margin-top:15px;">Enter A password:</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75"><div class="col-75">
+        <div class="col-75">
+         <input class="size" name="chpass" style="margin-top:10px;" type="password" placeholder="Password">
+            <input   type="submit" name="changedata" >
+            </div>
+      </div>
+    </div>
+         <br>
+         </form>
+      </div>
+     {% elif  coms  == 'Address' %}
+     <div style="margin-left:120px;">
+     <form id="frm" alignaction="#" method="post">{% csrf_token %}
+         <div class="row" >
+    <div class="row">
+        <center><p style="color:red">*Address is should be above  20 charcter and less then 100 charcter</p></center>
+      <div class="col-25" >
+         <label for="country" >
+         Enter a new Address:</label>
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+         <input class="size" name="chAddress" type="text" placeholder="Enter a new Address">
+            </div>
+      </div>
+    </div><div class="row">
+    <div class="row">
+      <div class="col-25">
+        <label for="country" style="margin-top:15px;">Enter A Password:</label>
+      </div>
+      <div class="col-75">
+            <div class="col-75">
+        <div class="col-75">
+         <input class="size" style="margin-top:10px;" name="chpass" type="password" placeholder="Password">
+            <input type="submit" name="changedata" >
+            </div>
+
+    </div>
+         </form>
+     </div>
+     {% elif  coms  == 'Password' %}
+     <div style="margin-left:120px;">
+     <form id="frm" alignaction="#" method="post">{% csrf_token %}
+         <div class="row">
+    <div class="row">
+        <center><p style="color:red">*Password can't less then 6 charcter  also include(special charcter,[a-z]or[A-Z]&digit)</p></center>
+      <div class="col-25">
+         <label for="country" style="margin-top:10px;">
+         Enter a Old Password:</label>
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+         <input class="size" name="chopass"  style="margin-top:10px;width:290px;" type="password" placeholder="Password">
+            </div>
+      </div>
+    </div>
+             <div class="row">
+    <div class="row">
+      <div class="col-25">
+         <label for="country" style="margin-top:10px;">
+         Enter a New Password:</label>
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+         <input class="size" name="chnpass"  style="margin-top:10px;width:290px;" type="password" placeholder="Password">
+            </div>
+      </div>
+    </div>
+             <div class="row">
+    <div class="row">
+      <div class="col-25">
+        <label for="country" style="margin-top:10px;">Enter A Password Again:</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75">
+            <div class="col-75">
+        <div class="col-75">
+         <input class="size" name="chrpass" style="width:290px;" type="password" placeholder="Password">
+            <input type="submit" style="margin-right:-30px;" name="changedata" >
+             </div>
+      </div>
+    </div>
+         </form>
+         </div>
+     {% elif  coms  == 'Image' %}
+     <form id="frm" style="margin-top:-40px;" alignaction="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+         <center>
+             <br><b>Current Image</b><br>
+             {% if pimage.c_img == 'static/dummyprofile.jpeg' %}
+					<img class="shak" style="width: 30%;height:40%;" onclick="largeimg()" src="{% static 'dummyprofile.jpeg' %}" alt="Not Uploded Any Image"/>
+					{% else %}
+					<img class="shak" style="width: 30%;height:40%;" onclick="largeimg()" src="{{ pimage.c_img.url }}" alt="If Profile Is Not Show Contect Us !!"/>
+					{% endif %}
+         <div>-----------------------------{{pimage.img_id}}---------------------------</div>
+				</a>
+         {% if pimage.c_img %} Select New Image:<input class="size"name="chfile" type="file" placeholder="select">
+             {% else %}
+             Set Image:<input class="size"name="chfile" type="file" placeholder="select">
+             {% endif %}
+             <input class="size" name="chpass" style="width:395px;" type="password" placeholder="Password">
+         <center><input type="submit" style="margin-right:270px;" name="changedata" ></center>
+         </center></td>
+         </form>
+     {% endif %}
+ </main>
+</div>
+<style>
+.size{
+    width:220px;
+}
+</style>
+<style>
+.set{
+width:30px;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: ;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+{% endblock %}

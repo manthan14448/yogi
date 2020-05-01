@@ -1,0 +1,173 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+ <li>
+         <li class=""><a href="#"  onclick="myFunction()">Go Back</a> </li>
+      <li class="active"><a href="#" class="heading">Inquiry data</a>
+        <li> <a href="/customer_info/userlogin">Home</a></li>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    {% if dest %}
+          <table class="responstable" style="margin-top:-70px;">
+
+  <tr>
+    <th>product img</th>
+      <th>product Type</th>
+      <th>product Color</th>
+    <th data-th="Driver details"><span>Description</span></th>
+    <th>Quntity</th>
+      <th data-th="Driver details"><span>Addmin Description</span></th>
+    <th>Approvel</th>
+    <th>Price</th>
+      <th>Place Order</th>
+  </tr>
+{% for i in dest %}
+  <tr>
+    <td style="color:black;" ><a class="i"><img style="width:100px;" src="{{i.i_img.url}}" onclick="bigsee('{{i.i_img.url}}')"></td>
+    <td style="color:black;" >{{i.i_type}}</td>
+      <td style="color:black;" >{{i.i_color}}</td>
+      <td style="color:black;" >{{i.c_Description}}</td>
+    <td style="color:black;" >{{i.qty}}</td>
+    <td style="color:black;" >{{i.a_Description}}</td>
+      <td style="color:black;" >{% if i.a_status == True %}<p>Yes</p>{% else %}<p>wait for Approvel</p>{% endif %}</td>
+    <td style="color:black;">{{i.price}}</td>
+      {% if i.a_status == True %}
+      <td><a href="/{{i.i_type}}/{{i.i_color}}/{{i.c_no}}/{{i.price}}/{{i.qty}}/{{i.id}}/addcart" class="btn big-login">Order</a></td>
+
+      {% else %}
+      <td style="color:black;" >wait for Approvel</td>
+      {% endif %}
+
+  </tr>
+{% endfor %}
+</table>
+    <div style="display: none;" class="form-popup" id="divr">
+<img src="" id="imge">
+      <button type="button" class="btn cancel" style="width: 580px;color:white;font-weight:bold;" onclick="closef()">Close</button>
+  </div>
+  {% else %}
+      <big><center><b>Not added Any Product</b></center></big>
+      {% endif %}
+
+  </main>
+</div>
+
+<script>
+  function bigsee(f){
+  document.getElementById("imge").src=f;
+    document.getElementById("divr").style.display="block";
+  console.log("okay"+f);
+  }
+  function closef(){
+    document.getElementById("divr").style.display="none";
+  }
+   function myFunction(){
+    window.history.back();
+}
+</script>
+<style>
+.form-container .btn {
+      background-color: #8ebf42;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+      }
+      /* Style cancel button */
+      .cancel {
+      background-color: #cc0000;
+      }
+      /* Hover effects for buttons */
+      .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+      }
+ .form-popup {
+   width: 600px;
+  height: 200px;
+      display: none;
+      margin-top:80px;
+      margin-left:100px;
+      position: fixed;
+      left: 45%;
+      top:5%;
+      transform: translate(-45%,5%);
+      border: 10px solid #666;
+      z-index: 9;
+      }
+ .i:hover {
+ width=620px;
+}
+  .responstable {
+    margin: 1em 0;
+    width: 100%;
+    overflow: hidden;
+    background: $background-color;
+    color: $text-color;
+    border-radius: $border-radius;
+    border: $outer-border;
+
+    tr {
+      border: $cell-border;
+      &:nth-child(odd) { // highlight the odd rows with a color
+        background-color: $highlight-color;
+      }
+    }
+
+    th {
+      display: none; // hide all the table header for mobile
+      border: $header-border;
+      background-color: $header-background-color;
+      color: $header-text-color;
+      padding: 1em;
+      &:first-child { // show the first table header for mobile
+        display: table-cell;
+        text-align: center;
+      }
+      @media (min-width: $breakpoint) {
+        &:nth-child(2) { // hide the data-th and show the normal header for tablet and desktop
+          span {display: block;}
+          &:after {display: none;}
+        }
+      }
+    }
+
+    td {
+
+      display: block; // display the table data as one block for mobile
+      word-wrap: break-word;
+      max-width: 7em;
+      &:first-child {
+        display: table-cell; // display the first one as a table cell (radio button) for mobile
+        text-align: center;
+        border-right: $cell-border;
+      }
+      @media (min-width: $breakpoint) {
+        border: $cell-border;
+      }
+    }
+
+    th, td {
+      text-align: left;
+      margin: .5em 1em;
+      @media (min-width: $breakpoint) {
+        display: table-cell; // show the table as a normal table for tablet and desktop
+        padding: 1em;
+      }
+    }
+  }
+}
+
+</style>
+{% endblock %}

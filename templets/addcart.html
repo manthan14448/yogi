@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+      <li class="heading" ><a class="active">{{user.c_name}}</a>
+    </ul>
+  </nav>
+</div>
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    {% if  a4 %}
+    <div class="content" >
+        <center> <big><strong>{{b}}<br></strong></big><br>
+          <a href="/" class="btn big-login" >Home</a></center>
+    </div>
+    {% else %}
+    <div class="content" >
+        <center> <big><strong>{{b}}<br></strong></big><br>{% if not a2 %}<a href="#" id="clickButton" class="btn big-login" onclick="myFunction()">Go Back</a>{% endif %}
+          {% if not a3 %} <a href="/customer_info/userlogin" class="btn big-login" >Home</a>{% endif %}</center>
+    </div>
+    {% endif %}
+  </main>
+</div>
+<script>
+    function myFunction(){
+    window.history.back();
+}
+
+</script>
+{% endblock %}

@@ -1,0 +1,241 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0" xmlns="http://www.w3.org/1999/html">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+              <li class="set"><a href="#" onclick="goBack()"><img class="shak" src="{% static 'back.jpg' %}"></a> </li>
+      <li class="heading" ><a class="active">{{dests.product_type_id}} {{dests.p_code}}</a>
+    </ul>
+  </nav>
+</div>
+
+<div class="wrapper bgded overlay light">
+    <main class="hoc container clear">
+      <div class="nospace clear" >
+        <center> <img src="{{dests.p_img.url}}" alt="That the {{dests.product_type_id}} image;if not see report!!"></center>
+      </div>
+    </div>
+  </main>
+</div>
+
+<center></center>
+<center style="font-size:25px;">Product Details</center>
+<center></center>
+<div></div>
+
+<div class="wrapper bgded overlay light">
+  <main class="hoc container clear" >
+<table>
+    <p style="margin-top:-9px;font-size:25px;"><b>Product</b> : {{dests.p_type_id|upper }}</p>
+      <p style="margin-top:-9px;font-size:25px;"><b>product code</b>: {{dests.p_code}}</p>
+      <p style="margin-top:-9px;font-size:25px;"><b>Product Description</b>: {{dests.p_description}}</p>
+      <p style="margin-top:-9px;font-size:25px;" ><b>Product Color</b> : <spam id="pcolor">{{dests.p_color|upper }}</spam>
+             {% if dests.product_type_id|upper  != 'CHAIR' and  dests.product_type_id|upper  != 'PAAT'%}
+          {% if user != 0 %}
+          <br><a style="color:black;">other color options</a>{{i.price}}<menu>
+      {% for i in color %}<li><a style="color:black;" href="#" class="aclass" onclick="chnagevalue()">  <input type="radio" name="ppcolor" value="{{i.colors|upper}}" > {{i.colors}}</input></a></li>{% endfor %}</menu>
+      <br><br><br>{% endif %}{% endif %}<div id="c_store" style="display: none;"></div>
+      <p id="cpr" style="margin-top:-9px;font-size:25px;"><b>Product Price</b> :<spam id="pprice"> {{dests.p_price|stringformat:".f"}}</spam> Rs</p>
+     {% if user != 0 %}
+      <p style="margin-top:-9px;font-size:25px;"><b>Product Quantity</b> :
+    <div class="col col-qty layout-inline" style="margin-left:230px;margin-top:-55px;">
+          <a href="#" class="qty qty-minus">-</a>
+           <input type="numeric" value="1" id="no"/>
+          <a href="#" class="qty qty-plus">+</a>
+  </div></p>
+    {% endif %}
+</table>
+  </main>
+</div>
+{% if user != 0 %}
+<center><a id="ch_a"
+           onclick="ch_a()" href="/{{dests.p_type_id}}/{{dests.p_color|upper}}/{{dests.p_code}}/addcart"><img class="shak"  style="border-color: #00BBFF;" id="setimg" src="{% static 'hd.png' %}">
+   </a>
+<form action="/delete/product/{{dests.p_code}}" method="post" style="display: inline-block;">{% csrf_token %}
+       <button class="shak" style="border-color: red;font-size:20px;color:white;margin-top:-12px;height:50px;width:200px;background-color:red;">Delete</button></form>
+    {% endif %}
+  <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+
+<script>
+     var ele = document.getElementsByName('ppcolor');
+ for (i = 0; i < ele.length; i++) {
+ console.log(ele[i].value)
+                if (ele[i].type == "radio") {
+                if(ele[i].value== '{{dests.p_color|upper }}')
+                {
+                      ele[i].checked = true;
+                }
+                     }
+                }
+
+    function chnagevalue(){
+          var ele = document.getElementsByName('ppcolor');
+                for(i = 0; i < ele.length; i++) {
+                    if(ele[i].checked){
+                    console.log(ele[i].value);
+                    document.getElementById('c_store').innerHTML = ele[i].value;
+                    }
+                  }
+                }
+  function ch_a(){
+  if(document.getElementById('c_store').innerHTML != "")
+  {
+  document.getElementById('ch_a').href="/{{dests.p_type_id}}/"+document.getElementById('c_store').innerHTML+"/{{dests.p_code}}/{{dests.p_price|stringformat:".f"}}/"+document.getElementById('no').value+"/addcart";
+  }
+  else{
+  document.getElementById('ch_a').href="/{{dests.p_type_id}}/{{dests.p_color|upper}}/{{dests.p_code}}/{{dests.p_price|stringformat:".f"}}/"+document.getElementById('no').value+"/addcart";
+  }
+  }
+
+</script>
+      <style>
+
+.layout-inline > * {
+  display: inline-block;
+}
+
+
+
+.col {
+  padding: 0.5em;
+  width: 12%;
+}
+
+.col-pro {
+  width: 24%;
+}
+
+.col-pro > * {
+  vertical-align: middle;
+}
+
+.col-qty {
+  text-align: center;
+  width: 17%;
+}
+
+.col-numeric p {
+  font: 1em helvetica;
+}
+
+.col-total p {
+  color: black;
+}
+
+.tf .col {
+  width: 20%;
+}
+
+.row > div {
+  vertical-align: middle;
+}
+
+
+
+
+.col-qty > * {
+  vertical-align: middle;
+}
+
+.col-qty > input {
+  max-width: 2.6em;
+}
+
+
+a.qty {
+  width: 1em;
+  line-height: 1em;
+  border-radius: 2em;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  background: black;
+  color: #fff;
+}
+
+a.qty:hover {
+  background: #3b9ac6;
+}
+
+</style>
+    <script>
+    // SHOPPING CART PLUS OR MINUS
+    $('a.qty-minus').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $input = $this.closest('div').find('input');
+        var value = parseInt($input.val());
+
+        if (value > 1) {
+            value = value - 1;
+        } else {
+            value = 0;
+        }
+         $input.val(value);
+    });
+
+    $('a.qty-plus').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $input = $this.closest('div').find('input');
+        var value = parseInt($input.val());
+        if (value < 100) {
+        value = value + 1;
+        } else {
+            value =100;
+        }
+         $input.val(value);
+    });
+
+// RESTRICT INPUTS TO NUMBERS ONLY WITH A MIN OF 0 AND A MAX 100
+$('input').on('blur', function(){
+
+    var input = $(this);
+    var value = parseInt($(this).val());
+        if (value < 0 || isNaN(value)) {
+            input.val(0);
+        } else if
+            (value > 100) {
+            input.val(100);
+        }
+});
+    </script>
+<style>
+#setimg{
+width:250px;
+}
+#setim{
+width:50px;
+}
+table{
+border: 1px solid #FFFFFF;
+}
+td{
+font-size: 13px;
+}
+tr{
+font-size: 13px;
+}
+    menu li {
+float: left;
+list-style: none;
+margin-right: 8px;
+margin-left:-10px;
+margin-top:-18px;
+padding: 4px;
+}
+input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+}
+.set{
+height:20px;
+width: 25px;
+margin-right:850px;
+
+}
+</style>
+{% endblock %}

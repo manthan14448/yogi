@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+        <li class="set"><a href="#" onclick="goBack()"><img style="width:40px;" src="{% static 'back.jpg' %}"></a> </li>
+        <li  class="heading" ><a href="#">Report</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="wrapper bgded overlay light">
+    <main class="hoc container clear">
+      <div class="nospace clear" >
+<center>
+    <form method="post" action="report_detail"> {% csrf_token %}
+          <select name="Product" id="select" style="width:535px;" size="1" onclick="setpro()">
+            <option value="0">--Select--</option>
+              <option value="tsell">Today Sell Product Names</option>
+             <option value="hsell">Highest Sell Product names</option>
+            <option value="mhsell">Month Highest Product Selled</option>
+              <option value="hmsell">Month Selled Products Amount</option>
+        </select><br>
+    <button type="submit" class="btn big-register">Click</button>
+          <input type="text" value="" id="pro" name="report_type" style="visibility:hidden;">
+        </form>
+    </center>
+
+      </div>
+
+  </main>
+</div>
+<script>
+    function myFunction(){
+    window.history.back();
+}
+
+</script>
+<script>
+
+     function setpro(){
+        is=document.getElementById("select").value;
+        console.log(is);
+        document.getElementById("pro").value=is;
+     }
+</script>
+<style>
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+</style>
+{% endblock %}

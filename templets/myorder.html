@@ -1,0 +1,367 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+        <li><a href="/customer_info/userlogin">Home</a></li>
+      <li class="heading" ><a class="active">{{user.c_name}}</a>
+    </ul>
+  </nav>
+</div>
+{% if dest %}
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    <div class="content" >
+    <table class="blueTable">
+<thead>
+
+<tr>
+<th>Order id</th>
+<th>Delivery Address</th>
+    <th>Delivery Status</th>
+<th>Employee To delivery</th>
+
+<th>Payment Status</th>
+<th>Totel amount</th>
+    <th>Generate Bill</th>
+</tr>
+
+</thead>
+<tfoot>
+<tr>
+<td colspan="7">
+    <tr></tr>
+</td>
+</tr>
+</tfoot>
+<tbody>
+{% for i in dest %}
+<tr>
+    <td style="color:blue; font-weight: bold;"><center><a href="/customer_info/myorder/{{i.o_id}}"  class="dis" style="color:blue; font-weight: bold;" onclick="openorder({{i.o_id}})">{{i.o_id}}</a></center></td>
+
+    {% if i.d_status|upper == 'NO' %}
+    <td style="color:black;font-weight: bold;"><center>-</center></td>
+    {% else %}
+    {% for i1,j1 in da.items %}
+        {% if i.o_id == i1 %}
+        <td style="color:black;font-weight: bold;">{{j1}}</td>
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% if i.d_status == 'yes' %}
+    <td style="font-weight: bold;color:red;"><center>{{i.d_status|upper}}</center></td>
+    {% else %}
+    <td style="font-weight: bold;color:black;"><center>{{i.d_status|upper}}</center></td>
+
+    {% endif %}
+
+    {% if i.d_status == 'yes' %}
+    <td ><a href="#"  class="dis"
+            onclick="openForm({{i.o_id}})"  style="color:blue; font-weight: bold;">
+        <center><p id="{{i.o_id}}"></p></center>
+    </a><span  style="color:red;" id="{{i.o_id}}not">
+        <center>not allocated</center></span> </td>
+    {% else %}
+   <td> <center><big>-</big></center></td>
+    {% endif %}
+
+    {% if i.pay_status == None  %}
+     <td style="color:black;"><center>Not mentiond</center></td>
+    {% else %}
+    <td style="color:Red;"><center>{{i.pay_status}}</center></td>
+    {% endif %}
+
+    <td style="color:black;"><center><a href="/customer_info/myorder/{{i.o_id}}"  class="dis" style="color:blue; font-weight: bold;" onclick="openorder({{i.o_id}})">{{i.totel_amt}}</a></center></td>
+   {% if i.pay_status|upper == 'PAID' %}
+    <td ><center><u><a style="color:red;font-weight:bold;" href="myorder/{{i.o_id}}/Bill/Download">Download</a></u></center></td>
+    {% else %}
+    <td ><center>You have not Pay Amount</center></td>
+    {% endif %}
+</tr>
+</a>
+ {% endfor %}
+</tbody>
+</tr>
+</table>
+      </div>
+  </main>
+    <center>
+   <div class="login-popup">
+      <div class="form-popup" id="popupForm">
+        <form  class="form-container">
+          <h2>Employee Detail</h2>
+            <strong>Name</strong>
+           <p  id="ename" >Rajubhai</p>
+            <strong>Mobile Number</strong>
+            <p id="emono">9879888822</p>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+    </div>
+</center>
+     <center>
+
+   <div class="login-popup" >
+       {% if orderdetail %}
+      <div class="form-pop"  id="popuporder" >
+          {% else %}
+          <div class="form-popup" >
+          {% endif %}
+        <form  class="form-container" >
+            <h2>Order Detail</h2>
+            <center><h3>Order Id No:-<big>{{oidno}}</big></h3></center>
+           <table border="4px">
+<thead>
+<tr>
+<th>Product <br>Code|name</br></th>
+  <th>Product Color</th>
+<th>Quntity</th>
+    <th>Pay Amount</th>
+    <th>Totel Amount</th>
+
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td colspan="6">
+</td>
+</tr>
+</tfoot>
+<tbody>
+<div id="torderdata">
+{% for d in orderdetail%}
+<tr>
+    <td style="color:black;"><a href="#" id="p{{d.p_id}}{{d.p_color}}" onclick="td('{{d.p_id}}','{{d.p_color}}')"><center>{{d.p_id}}</center>
+    <a style="visibility: hidden;" href="#" id="{{d.p_id}}{{d.p_color}}" >{{d.p_id}}{{d.p_color}}</a></a></td>
+    <td style="color:black;"><center>{{d.p_color}}</center></td>
+    <td style="color:black;"><center>{{d.qty}}</center></td>
+    {% if d.pay_price|floatformat:0 ==  d.rate|floatformat:0 %}
+    <td style="color:black;"><center>Payed</center></td>
+    {% elif d.pay_price == None %}
+    <td style="color:black;"><center>Not Pay </center></td>
+    {% else %}
+    <td style="color:black;"><center>{{d.pay_price|floatformat:0}}</center></td>
+    {% endif %}
+    <td style="color:black;"><center>{{d.rate|floatformat:0}}</center></td>
+
+</tr>
+{% endfor %}
+    </div>
+</tbody>
+</table>
+          <button type="button" class="btn cancel" onclick="closeorder()">Close</button>
+        </form>
+      </div>
+    </div>
+</center>
+<script>
+{% if orderalert %}
+    alert('{{orderalert}}');
+{% endif %}
+    {% for i in edel %}
+    {% for j in dests %}
+    if({{i.o_id}}=={{j.o_id}}){
+    a='{{i.e_id|upper }}';
+    if(a == 'NONE'){document.getElementById({{j.o_id}}).innerHTML='';
+    document.getElementById('{{j.o_id}}not').innerHTML='<center>Not Allocated</center>';}
+    else{document.getElementById({{j.o_id}}).innerHTML=a;
+    document.getElementById('{{j.o_id}}not').innerHTML="";}
+
+
+    }
+    {% endfor %}
+    {% endfor %}
+    function openForm(x) {
+    {% for i in dests %}
+    if({{i.o_id}}==x){
+    {% for j in edel %}
+    if(x=={{j.o_id}}){
+    document.getElementById("ename").innerHTML='{{j.e_id|upper }}';
+    {% for k in einfo %}
+    console.log('{{k.e_name}}=={{j.e_id}}');
+    if('{{k.e_name}}'==='{{j.e_id}}'){
+
+    document.getElementById("emono").innerHTML='{{k.e_con_no}}';
+    }
+    {% endfor %}
+    }
+    {% endfor %}
+    }
+    {% endfor %}
+    document.getElementById("popupForm").style.display="block";
+       }
+
+      function closeForm() {
+        document.getElementById("popupForm").style.display="none";
+
+      }
+    function openorder(y){
+    console.log(y);
+    document.getElementById("torderdata").innerHTML='';
+    document.getElementById("popuporder").style.display="block";
+    }
+    function closeorder(){
+    document.getElementById("popuporder").style.display="none";
+    window.history.back();
+    }
+    function td(a,b){
+    dispp(a,b);
+    }
+    function dispp(dd,y){
+    d2=dd+y;
+    d1=dd.split(" ")
+
+    var a = document.getElementById(d2).innerHTML;
+    ch_a(d1[0],d2);
+    }
+     function ch_a(r,a){
+    console.log(r);
+    console.log(a);
+     if(r[0]=='C' && r[1]=='P')
+     {
+      document.getElementById('p'+a).href='/view/'+r+'/CP';
+      }
+      else
+      {
+      document.getElementById('p'+a).href='/view/'+r;
+      }
+
+  }
+</script>
+    {% else %}
+    <div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+      <center><big><b>You have nothing order yet....</b></big></center>
+  </main></div>
+{% endif %}
+<style>
+  .open-btn {
+      display: flex;
+      justify-content: left;
+      }
+      /* Style and fix the button on the page */
+      .open-button {
+      background-color: #1c87c9;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      }
+      /* Position the Popup form */
+      .login-popup {
+      margin-top:50px;
+      position: relative;
+      text-align: center;
+      width: 100%;
+      }
+      /* Hide the Popup form */
+      .form-popup {
+      display: none;
+      margin-top:80px;
+      margin-left:100px;
+      position: fixed;
+      left: 45%;
+      top:5%;
+      transform: translate(-45%,5%);
+      border: 2px solid #666;
+      z-index: 9;
+      }
+      .form-pop {
+      margin-top:80px;
+      margin-left:100px;
+      position: fixed;
+      left: 45%;
+      top:5%;
+      transform: translate(-45%,5%);
+      border: 2px solid #666;
+      z-index: 9;
+      }
+      /* Styles for the form container */
+      .form-container {
+
+      padding: 20px;
+      background-color: #fff;
+      }
+
+      .form-container .btn {
+      background-color: #8ebf42;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+      }
+      /* Style cancel button */
+      .form-container .cancel {
+      background-color: #cc0000;
+      }
+      /* Hover effects for buttons */
+      .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+      }
+    table.blueTable {
+  border: 4px solid #61CFD5;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 2px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+  color: #2235DD;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable tfoot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 13px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+</style>
+{% endblock %}

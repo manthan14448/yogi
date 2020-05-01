@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+        <li><a href="userlogin">Home</a></li>
+             <li class="active"><a href="#" class="heading">Custom Order</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    <div class="content" >
+        <figure>
+          <div class="nospace clear"  ><center>
+              <big><a class="btn btn-default btn-register" data-toggle="modal" href="inqueryorder/newinquery" style="font-size:20px;">New Order</a>
+              <a class="btn btn-default btn-register" data-toggle="modal" href="inqueryorder/inquerydata" style="font-size:20px;">Past Order Data</a>
+                  <a class="btn btn-default btn-register" data-toggle="modal" href="inqueryorder/inqueryhistory" style="font-size:20px;"> Order History</a>
+              </center>
+          </div>
+        </figure>
+    </div>
+  </main>
+</div>
+{% endblock %}

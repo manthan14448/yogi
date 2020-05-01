@@ -1,0 +1,163 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+		<li class="set"><a href="#" onclick="goBack()"><img class="shak" style="height:30px;width:30px;" src="{% static 'back.jpg' %}"></a> </li>
+      <li class="heading"><center><a class="active">profile</a></center>
+		 <li style="margin-left:320px;"><a class="drop"  href="#">Change</a>
+            <ul>
+              <li><a href="profile/ChangeName">Name</a></li>
+				<li><a href="profile/ChangeMobileNumber">Mobile Number</a></li>
+              <li><a href="profile/ChangeEmail">E-mail</a></li>
+              <li><a href="profile/ChangeAddress" style="box:20px;">Address</a></li>
+				<li><a href="profile/ChangePassword">Change Password</a> </li>
+				{% if dests.c_img.url %}
+				<li><a href="profile/ChangeImage">Change Profile Image</a> </li>
+				{% else %}
+				<li><a href="profile/ChangeImage">Set Profile Image</a> </li>
+				{% endif %}
+				<li><div id="confirmBox">
+                                <div class="message"></div>
+                                <a href="profile/DeleteAccount" style="color:red;" class="yes" >Yes</a>
+                                <a href="#" onclick="closeCon()" class="no">No</a>
+                            </div>
+                            <a href="#" style="color:red;" onclick='doConfirm("Are You Sure You want Delete Your Account ??", function yes()
+                            {
+                            }, function no()
+                            {
+                            });'>Delete Account</a>
+                                            </li>
+            </ul>
+          </li>
+        </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="wrapper bgded overlay light">
+  <main class="hoc container clear">
+    <div class="content" style="margin-top:-45px;">
+        <figure>
+			<table>
+				<tr><td style="color:black;background-color:#D7D7D7;"><div style="color:black;background-color:#D7D7D7;">
+					<b><br><p style="color:#4e4b4a;"><span style="color:#252321;"> Name</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; : {{ destss.c_name|upper  }}</p>
+						{% if destss.com_name != NONE %}<p style="color:#4e4b4a;"><span style="color:#252321;">Company Name</span> : {{ destss.com_name|upper  }}</p>{% endif %}
+						<p style="color:#4e4b4a;"><span style="color:#252321;">Mobile-number</span>&nbsp; : {{ destss.com_per_no|upper  }}</p>
+						<p style="color:#4e4b4a;"><span style="color:#252321;">E-mail</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;: {{ destss.e_mail }}</p>
+						<p style="color:#4e4b4a;"><span style="color:#252321;">Address </span>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; : &nbsp;<p class="div1"  style="margin-top:-35px;margin-left:160px;color:#4e4b4a;">{{ destss.c_add|upper  }}</p>
+				</b>
+			</div></td></tr>
+				<tr><td style="color:black;background-color:#D7D7D7;">
+			<tr></tr>
+          <div class="nospace clear"  >
+           <br><div class="card-container" style="margin-left:240px;background-color:#D7D7D7;">
+		<div class="upper-container" >
+			<div class="image-container" >
+				{% if dests.c_img %}
+				<a class="lightbox" href="#dog">
+					{% if dests.c_img == 'static/dummyprofile.jpeg' %}
+					<img onclick="largeimg()" src="{% static 'dummyprofile.jpeg' %}" alt="Profile is Empty"/>
+					{% else %}
+					<img onclick="largeimg()" src="{{ dests.c_img.url }}" alt="If Profile Is Not Show Contect Us !!"/>
+					{% endif %}
+				</a>
+				{% else %}
+				<p>set image</p>
+				{% endif %}
+			</div>
+		</div>
+			</div>
+			<div>
+				<center><big><b style="color:#74D3D3;font-size:30px;">{{ destss.c_name|upper }}</b></big></center>
+			</div>
+	     </div>
+
+          <div class="destination_content">
+          </div>
+				</td></tr>
+			</table>
+        </figure>
+      </div>
+  </main>
+</div>
+<script>
+	function myFunction() {
+     document.getElementById("dis").style.visibility="visible";
+	}
+	function del(){
+	var r=confirm("Are You Sure You want Delete Your Account ??");
+	if (r == true) {
+	document.getElementById("deleteAcc").href="profile/DeleteAccount";
+ 					 txt = "You pressed OK!";
+		}
+	}
+</script>
+<style>
+<svg width="13" height="13" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#efb80b" d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/>
+</svg>
+.dis{
+height: 530px;
+}
+.wider
+{
+width: 600px;
+height: 630px;
+}
+.card-container{
+	background: #FFF;
+	border-radius: 6px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	box-shadow: 0px 1px 10px 1px #000;
+}
+.image-container img{
+	width: 100px;
+	height: 100px;
+}
+.div1 {
+  width: 400px;
+  height: 50px;
+  box-sizing: border-box;
+}
+img:hover{
+width: 250px;
+	height: 250px;
+}
+.lower-container{
+	height: 280px;
+	background: #FFF;
+	padding: 20px;
+	padding-top: 50px;
+}
+.lower-container h3, h4{
+	box-sizing: border-box;
+	line-height: .6;
+	font-weight: lighter;
+}
+.lower-container h4{
+	color: #7F00FF;
+	opacity: .7;
+	font-weight: bold;
+}
+.lower-container p{
+	font-size: 16px;
+	color: gray;
+	margin-bottom: 10px;
+	margin-left:330px;
+}
+
+</style>
+
+{% endblock %}
+
+
+

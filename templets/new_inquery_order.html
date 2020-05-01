@@ -1,0 +1,175 @@
+{% extends 'index.html' %}
+{% load static %}
+{% static "media" as baseUrl %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+              <li class="set"><a href="#" onclick="goBack()"><img class="shak" src="{% static 'back.jpg' %}"></a> </li>
+             <li class="active"><a href="#" class="heading">New Inquiry Order</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</div>
+{%if sub %}
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    <div class="content" >
+        <figure>
+          <div class="nospace clear"  >
+              <center> </li><big style="font-size:30px;">Data Are Submit</big><br><br><li> <a href="/customer_info/userlogin" class="btn big-register">Home</a></li></center>
+          </div>
+        </figure>
+    </div>
+  </main>
+</div>
+{% else %}
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    <div class="content" >
+        <figure>
+          <div class="nospace clear"  >
+<form id="frm" align="center" action="#" method="post" onsubmit="return valid()" enctype="multipart/form-data">{% csrf_token %}
+    <div class="row">
+    <div class="row">
+      <div class="col-25">
+        <label for="lname">select Product Image</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75"><div class="col-75"><div class="col-75">
+        <input type="file" name="p_img" id="img"><label style="color:red;">{{eri}}</label>
+        </div></div></div>
+      </div>
+    </div>
+        <div class="row">
+      <div class="col-25">
+        <label for="country">Product Type</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75">
+        <select name="Product" id="select" size="1" onclick="setpro()">
+            <option value="0">--Select--</option>
+             <option value="chori">Chori</option>
+             <option value="gate">Gate</option>
+            <option value="chair">Chair</option>
+            <option value="paat">Paat</option>
+            <option value="table">Table</option>
+        </select>
+      </div>
+      </div>
+    </div>
+        <div class="row">
+      <div class="col-25">
+        <label for="country">Color</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75">
+        <input type="text"  name="color" id="color">
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="country">Quntity</label>
+      </div>
+      <div class="col-75">
+        <div class="col-75">
+        <input type="text" value="1" name="qty" id="no"><label id="qty" style="color:red;">{{er}}</label>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="subject">Description</label>
+      </div>
+      <div class="col-75">
+        <textarea id="subject" name="subject"  placeholder="Write something.." style="height:200px"></textarea><label id="sub" style="color:red;"></label>
+      </div>
+    </div>
+    <div class="row">
+        <label id="error" style="color:red;visibility:hidden;"></label>
+      <input class="btn big-register" type="submit"  value="Submit">
+        <input type="text" value="" id="pro" name="product_type" style="visibility: hidden;">
+    </div>
+</div>
+                </form>
+
+          </div>
+        </figure>
+    </div>
+  </main>
+</div>
+{% endif %}
+<script>
+
+     function myFunction(){
+    window.history.back();
+}
+</script>
+<script>
+
+     function setpro(){
+        is=document.getElementById("select").value;
+        console.log(is);
+        document.getElementById("pro").value=is;
+     }
+</script>
+<style>
+.set{
+width:30px;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: ;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+{% endblock %}

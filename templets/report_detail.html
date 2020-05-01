@@ -1,0 +1,281 @@
+<html>
+<head>
+	<title>{{a}}{{b}}{{c}}{{d}}</title>
+	<style>
+
+</style>
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-table100">
+			{% if a %}
+			<center><img  src="/static/hsell.png" alt="image not display"  height="742" ></center>
+			{% endif %}
+			{% if c %}
+			<center><img  src="/static/mhsell.png" alt="image not display"  height="742" ></center>
+			{% endif %}
+			<div class="wrap-table100">
+				<div class="table100">
+					<br><table>
+						<thead>
+							<tr class="table100-head">
+								{% if a %}
+								<th class="column1">No</th>
+								<th class="column1">Product Code|Type</th>
+								<th class="column2">Quantity</th>
+								{% endif %}
+
+								{% if b %}
+								<h1><center>Today Sell Product</center></h1>
+								<th class="column1">No</th>
+								<th class="column1">Product Name</th>
+								<th class="column2">Order Date</th>
+								<th class="column2">Product Color</th>
+								<th class="column2">Quantity</th>
+								<th class="column2">Total Rate</th>
+								{% endif %}
+
+								{% if c %}
+								<h1><center>Highest sell Product Of Month </center></h1>
+								<th class="column1">No</th>
+								<th class="column2">Month Date</th>
+								<th class="column1">Highest sell Product Code</th>
+								<th>Product Type</th>
+								<th class="column2">Quantity</th>
+								{% endif %}
+
+								{% if d %}
+								<th><big><b>{{d}}</b></big></th>
+								{% endif %}
+
+
+							</tr>
+						</thead>
+						<tbody>
+						{% if a %}
+						{% for i,j in dest.items %}
+						<tr>
+							<td align="center"><big><b>{{forloop.counter}}</b></big></td>
+							<td align="center"><a href="#" id="disp" onclick="showdisp('{{i}}')" >
+								<big><b>{{i|upper}}</b></big></a></td>
+									<td align="center"><big><b>{{j}}</b></big></td>
+						</tr>
+						{% endfor %}
+						{% endif %}
+						{% if b %}
+						{% for i in dest %}
+						<tr>
+							<td align="center"><big><b>{{forloop.counter}}</b></big></td>
+							<td align="center"><big><b>{{i.p_id}}</b></big></td>
+							<td align="center"><big><b>{{i.order_date}}</b></big></td>
+							<td align="center"><big><b>{{i.p_color|upper}}</b></big></td>
+							<td align="center"><big><b>{{i.qty}}</b></big></td>
+							<td align="center"><big><b>{{i.rate|floatformat:0}}</b></big></td>
+						</tr>
+						{% endfor %}
+						<td></td><td></td><td></td><td></td>
+						<td align="center"><big><b><p>TOTAL</p></b></big></td>
+						<td align="center"><big><b>{{rate|floatformat:0}}</b></big></td>
+						{% endif %}
+
+						{% if c %}
+						{% for i,j in dest.items %}
+						<tr>
+							<td align="center"><big><b>{{forloop.counter}}</b></big></td>
+							<td align="center"><big><b>{{i}}</b></big></td>
+								{% for j1 in j %}
+										{% if forloop.counter == 3 %}
+										<td align="center"><big><b>{{j1}}</b></big></td>
+							{% else %}
+										<td align="center"><big><b>{{j1| upper}}</b></big></td>
+							{% endif %}
+								{% endfor %}
+						</tr>
+						{% endfor %}
+						{% endif %}
+
+						</tbody>
+					</table>
+					{% if d %}
+					{% for i,j in dest.items %}
+					<table title="">
+								<h1><center>{{i}}</center></h1>
+								<th style="background-color:#36304a;color:white;">No</th>
+								<th style="background-color:#36304a;color:white;">Product Name</th>
+								<th style="background-color:#36304a;color:white;">Product Type</th>
+								<th style="background-color:#36304a;color:white;">Product Color</th>
+								<th style="background-color:#36304a;color:white;">Quantity</th>
+								<th style="background-color:#36304a;color:white;">Total Rate</th>
+						{% for j1,j2 in j.items %}
+						<tr>
+								<td align="center"><big><b>{{forloop.counter}}</b></big></td>
+								<td align="center"><big><b>{{j1}}</b></big></td>
+										{% for j3 in j2 %}
+							{% if forloop.counter == 1 %}<td align="center"><big><b>{{j3|upper}}</b></big></td>
+							{% elif forloop.counter == 4 %}<td align="center"><big><b>{{j3|floatformat:0}}</b></big></td>
+							{% elif forloop.counter == 5 %}<tr><td></td><td></td><td></td><td></td>
+															<td align="center" style="background-color:#36304a;color:white;"><big><b><p>TOTAL</p></b></big></td>
+															<td align="center" style="background-color:#36304a;color:white;"><big><b>{{j3|floatformat:0}}</b></big></td>
+					</tr>
+							{% else %}<td align="center"><big><b>{{j3|upper}}</b></big></td>{% endif %}
+										{% endfor %}
+								{% endfor %}
+						</tr>
+						{% for i,j in total.items %}<tr>
+
+						</tr>
+					{% endfor %}
+						 </table>
+						{% endfor %}
+						{% endif %}
+						{% if d %}
+					<br>
+					<table>
+						<td align="center" style="background-color:#36304a;color:white;"><big><b><p>FINAL TOTAL</p></b></big></td>
+						<td align="center" style="background-color:#36304a;color:white;"><big><b>{{total|floatformat:0}}</b></big></td>
+						</tr>
+						</table>
+							{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+<center><a href="report_detail/get"></a> </center>
+
+	
+<script>
+    function myFunction(){
+    window.history.back();
+}
+function showdisp(x){
+var res = x.split(" ");
+document.getElementById("disp").href='/'+res[1]+'/'+res[0];
+console.log('/'+res[1]+'/'+res[0]);
+}
+</script>
+<!--===============================================================================================-->	
+	<style>
+
+body, html {
+	height: 100%;
+	font-family: sans-serif;
+}
+
+
+h1,h2,h3,h4,h5,h6 {margin: 0px;}
+
+p {margin: 0px;}
+
+ul, li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+
+input {
+  display: block;
+	outline: none;
+	border: none !important;
+}
+
+textarea {
+  display: block;
+  outline: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+/* ------------------------------------ */
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+iframe {
+	border: none !important;
+}
+
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-table100 {
+  width: 100%;
+  min-height: 100vh;
+  background: #c850c0;
+  background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
+  background: -o-linear-gradient(45deg, #4158d0, #c850c0);
+  background: -moz-linear-gradient(45deg, #4158d0, #c850c0);
+  background: linear-gradient(45deg, #4158d0, #c850c0);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 33px 30px;
+}
+
+.wrap-table100 {
+  width: 1170px;
+}
+
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+}
+
+table td, table th {
+  padding-left: 8px;
+  font-size:17px;
+}
+table thead tr {
+  height: 60px;
+  background: #36304a;
+}
+table tbody tr {
+  height: 50px;
+}
+table tbody tr:last-child {
+  border: 0;
+}
+
+.table100-head th{
+  font-family: OpenSans-Regular;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: unset;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+tbody tr {
+  font-family: OpenSans-Regular;
+  font-size: 15px;
+  color: #808080;
+  line-height: 1.2;
+  font-weight: unset;
+}
+
+tbody tr:hover {
+  color: #555555;
+  background-color: #f5f5f5;
+
+}
+</style>
+
+</body>
+</html>

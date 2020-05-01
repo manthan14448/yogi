@@ -1,0 +1,133 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="wrapper row0">
+  <nav id="mainav" class="hoc clear">
+    <ul class="clear">
+      <li class="heading" ><a class="active">{{user.c_name}}</a>
+    </ul>
+  </nav>
+</div>
+{% if email %}
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    <div class="content" >
+        <form id="frm" action="/customer_info/profile/ChangeEmail/changed"  method="post">{% csrf_token %}
+         <div class="row">
+    <div class="row">
+      <div class="col-25">
+
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+            <center><p style="color:red;">*We have send a 6 digit code for Authentication*
+                <p style="color:red;">E-mail : {{email}}</p>
+          Enter a Code Hear:<input class="size" name="code" type="text" placeholder="Enter A Code">
+             <center><input type="submit" name="changedata" ></center>
+            <p style="color:red;">{{error}}</p>
+            </div>
+      </div>
+    </div>
+         </div>
+     </form>
+    </div>
+  </main>
+</div>
+{% else %}
+<div class="wrapper bgded overlay light" >
+  <main class="hoc container clear">
+    <div class="content" >
+        <form id="frm" action="/customer_info/userregister/createaccount"  method="post">{% csrf_token %}
+         <div class="row">
+    <div class="row">
+      <div class="col-25">
+
+          </div>
+      <div class="col-75">
+        <div class="col-75">
+            <center><p style="color:red;">*We have send a 6 digit code for Authentication*
+               <p>E-mail : {{email}} <p style="color:red;">
+                &</p> Mobile Number :  {{mobile}}</p></p></center>
+          Enter a Code Hear:<input class="size" name="code" type="text" placeholder="Enter A Code">
+             <center><input type="submit" name="changedata" ></center>
+            <p style="color:red;">{{error}}</p>
+            </div>
+      </div>
+
+    </div>
+         </div>
+     </form>
+    </div>
+  </main>
+</div>
+{% endif %}
+<script>
+    function myFunction(){
+    window.history.back();
+}
+
+</script>
+<style>
+.set{
+width:30px;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: ;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+{% endblock %}
